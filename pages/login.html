@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <div class="wrapper">
+        <form action="/login" method="POST">
+            <h1>Log in</h1>
+            <div class="input-box">
+                <input type="text" name="username" placeholder="Username">
+                <i class='bx bx-user'></i>
+            </div>
+            <div class="input-box">
+                <input type="password" name="password" id="password" placeholder="Password">
+                <i class='bx bx-hide' id="togglePassword"></i>
+            </div>
+            <button type="submit" class="btn">login</button>
+
+            {% if error %}
+                <div class="error-msg" style="color: #ff3333; margin-top: 15px; font-size: 14px; text-align: center; font-weight: bold;">
+                    {{ error }}
+                </div>
+            {% endif %}
+        </form>
+        </div>
+        <button class="theme" id="toggletheme"><i class='bx bxs-moon'></i></button>
+    <script>
+        const password = document.getElementById("password");
+        const toggle = document.getElementById("togglePassword");
+        const toggleTheme = document.getElementById("toggletheme");
+        const themeIcon = toggleTheme.querySelector("i");
+
+        const savedTheme = localStorage.getItem("theme");
+
+        if (savedTheme === "dark") {
+            document.body.classList.add("dark-mode");
+            themeIcon.classList.remove("bxs-moon");
+            themeIcon.classList.add("bxs-sun");
+        }
+
+        toggle.addEventListener("click", function () {
+            if (password.type === "password") {
+                password.type = "text";
+                toggle.classList.remove("bx-hide");
+                toggle.classList.add("bx-show");
+            } else {
+                password.type = "password";
+                toggle.classList.remove("bx-show");
+                toggle.classList.add("bx-hide");
+            }
+        });
+
+        toggleTheme.addEventListener("click", function () {
+
+            document.body.classList.toggle("dark-mode");
+
+            const isDark = document.body.classList.contains("dark-mode");
+
+            if (isDark) {
+                localStorage.setItem("theme", "dark");
+            } else {
+                localStorage.setItem("theme", "light");
+            }
+
+            themeIcon.classList.toggle("bxs-moon", !isDark);
+            themeIcon.classList.toggle("bxs-sun", isDark);
+        });
+    </script>
+</body>
+</html>

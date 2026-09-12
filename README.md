@@ -32,7 +32,7 @@ The backend handles authentication and communication with LibreLinkUp, while the
 - Docker
 - LibreLinkUp API
 ## Running Locally
-###   YOU MUST HAVE A LIBRELINKUP ACCOUNT CONNECT TO USERS FOR IT TO WORK
+###   YOU MUST HAVE A LIBRELINKUP ACCOUNT CONNECTED TO USERS FOR IT TO WORK
 ## Install docker
 ## 1. Clone the repository
 ```

@@ -1,0 +1,337 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    min-height: 100vh;
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            #14945e 0%,
+            #087449 45%,
+            #056340 75%,
+            #035638 100%
+        );
+    color: white;
+}
+
+.navbar {
+    height: 46px;
+    width: 100%;
+    background: #0c1d2d;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 13px 0 24px;
+    position: relative;
+    z-index: 10;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #e8edf2;
+}
+
+.drop {
+    font-size: 23px;
+    line-height: 1;
+}
+
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.user-dropdown {
+    position: relative;
+}
+
+.user-button {
+    height: 31px;
+    min-width: 182px;
+    padding: 0 10px;
+    border: 1px solid #263c50;
+    border-radius: 6px;
+    background: #102538;
+    color: #e3e9ef;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-family: inherit;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+
+.user-icon {
+    font-size: 17px;
+    color: #b8c5d0;
+}
+
+
+.chevron {
+    margin-left: auto;
+    font-size: 16px;
+    color: #b8c5d0;
+    transform: translateY(-2px);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 34px;
+    right: 0;
+    width: 182px;
+    padding: 4px;
+    background: #0d2032;
+    border: 1px solid #1e3448;
+    border-radius: 6px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    display: none;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+.patient {
+    height: 29px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #d6dee6;
+    font-size: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.patient:hover {
+    background: #163047;
+}
+
+.patient.active {
+    background: #17334b;
+}
+
+.patient-icon {
+    font-size: 16px;
+    color: #aebdca;
+}
+
+.patient.active {
+    background: #17334b;
+}
+
+.check {
+    margin-left: auto;
+    color: #dce6ed;
+    font-size: 15px;
+}
+
+.logout-button {
+    height: 31px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid #263c50;
+    border-radius: 6px;
+    background: #102538;
+    color: #dce5ed;
+    font-family: inherit;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.logout-icon {
+    font-size: 18px;
+}
+
+.user-button:hover,
+.logout-button:hover {
+    background: #163047;
+}
+
+.dashboard {
+    min-height: calc(100vh - 46px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-items: center;
+    padding-top: 118px;
+}
+
+.glucose-card {
+    width: 355px;
+    height: 175px;
+    background: rgba(4, 54, 42, 0.52);
+    border: 1px solid rgba(121, 214, 176, 0.35);
+    border-radius: 10px;
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.05),
+        0 5px 20px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.glucose-main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.glucose-number {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 145px;
+}
+
+.glucose-value {
+    font-size: 82px;
+    line-height: 0.85;
+    font-weight: 400;
+    letter-spacing: -2px;
+    color: #ffffff;
+    display: block;
+}
+
+.glucose-bottom {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-top: 5px;
+}
+
+.unit {
+    font-size: 24px;
+    line-height: 1;
+    font-weight: 300;
+    color: #d7e6e1;
+    margin-top: 8px;
+}
+
+.trend-arrow {
+    font-size: 70px;
+    line-height: 1;
+    font-weight: 300;
+    color: #69e0b1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+}
+
+
+.status {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #d3e6df;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+
+.status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #42d59d;
+    box-shadow: 0 0 8px rgba(66, 213, 157, 0.25);
+}
+
+@media (max-width: 600px) {
+
+    .navbar {
+        padding-left: 15px;
+        padding-right: 10px;
+    }
+    .logo {
+        font-size: 14px;
+    }
+    .user-button {
+        min-width: 145px;
+    }
+    .dropdown-menu {
+        width: 145px;
+    }
+    .logout-button {
+        padding: 0 9px;
+    }
+    .logout-button span:last-child {
+        display: none;
+    }
+    .dashboard {
+        padding-top: 100px;
+    }
+    .glucose-card {
+        width: 300px;
+    }
+}
+
+body.glucose-low {
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            #b32626 0%,
+            #7a1717 45%,
+            #5c1010 75%,
+            #420b0b 100%
+        );
+}
+
+body.glucose-normal {
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            #14945e 0%,
+            #087449 45%,
+            #056340 75%,
+            #035638 100%
+        );
+}
+
+body.glucose-high {
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            #c58a17 0%,
+            #98680d 45%,
+            #75500a 75%,
+            #543a06 100%
+        );
+}
+
+body.glucose-very-high {
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            #b94b1c 0%,
+            #873314 45%,
+            #64250f 75%,
+            #471a0b 100%
+        );
+}

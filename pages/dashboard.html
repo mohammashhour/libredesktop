@@ -3,12 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Glucose Dashboard</title>
+    <link rel="stylesheet" href="/static/dashboard.css">
 </head>
 <body>
-    <nav class="Navbar">
-        
+    <nav class="navbar">
+        <div class="logo">
+            <span>Glucose</span>
+        </div>
+        <div class="nav-right">
+            <div class="user-dropdown">
+                <button class="user-button" id="userButton">
+                    <span id="selectedPatient">
+                        {{ patients[0].name }}
+                    </span>
+                    <span class="chevron">
+                        ⌄
+                    </span>
+                </button>
+
+                <div class="dropdown-menu" id="dropdownMenu">
+                    {% for patient in patients %}
+                    <div
+                        class="patient {% if loop.first %}active{% endif %}"
+                        data-patient="{{ patient.index }}"
+                    >
+                        <span>
+                            {{ patient.name }}
+                        </span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <button class="logout-button" onclick="logout()">
+                <span class="logout-icon">
+                    ⇥
+                </span>
+                <span>
+                    Log out
+                </span>
+            </button>
+        </div>
     </nav>
-    
+
+    <main class="dashboard">
+        <div class="glucose-card">
+            <div class="glucose-main">
+                <div class="glucose-number">
+                    <span id="glucoseValue" style="font-size: 50px;">--</span>
+                    <span class="unit">mmol/L</span>
+                </div>
+                <div
+                    class="trend-arrow"
+                    id="trendArrow"
+                >
+                    →
+                </div>
+            </div>
+        </div>
+        <div class="status">
+
+            <span
+                class="status-dot"
+                id="statusDot"
+            >
+            </span>
+            <span id="statusText">
+                Loading...
+            </span>
+        </div>
+    </main>
+
+
+<script>
+    const userButton = document.getElementById("userButton");
+    const dropdownMenu = document.getElementById("dropdownMenu");
+    const selectedPatient = document.getElementById("selectedPatient");
+    const glucoseValue = document.getElementById("glucoseValue");
+    const trendArrow = document.getElementById("trendArrow");
+    const statusText = document.getElementById("statusText");
+    const patients = document.querySelectorAll(".patient");
+    let currentPatient = 0;
+
+    userButton.addEventListener(
+        "click",
+        function(event) {
+            event.stopPropagation();
+            dropdownMenu.classList.toggle("show");
+        }
+    );
+
+
+    patients.forEach(function(patient) {
+        patient.addEventListener(
+            "click",
+            function() {
+                patients.forEach(function(p) {
+                    p.classList.remove("active");
+                });
+                this.classList.add("active");
+                currentPatient =Number(this.dataset.patient);
+                selectedPatient.textContent =this.querySelector("span").textContent;
+                dropdownMenu.classList.remove("show");
+                updateGlucose();
+            }
+        );
+
+    });
+    document.addEventListener(
+        "click",
+        function(event) {
+            if (
+                !event.target.closest(
+                    ".user-dropdown"
+                )
+            ) {
+                dropdownMenu.classList.remove(
+                    "show"
+                );
+            }
+        }
+    );
+
+    function getTrendArrow(trend) {
+        const arrows = {
+            "STABLE": "→",
+            "UP-SLOW": "↗",
+            "UP-FAST": "↑",
+            "DOWN-SLOW": "↘",
+            "DOWN-FAST": "↓"
+
+        };
+        return arrows[trend] || "→";
+    }
+
+    function getStatus(value) {
+        if (value < 4.0) {
+            return "Low";
+        }
+        if (value < 4.1) {
+            return "Low";
+        }
+        if (value <= 10.0) {
+            return "In range";
+        }
+        if (value <= 13.9) {
+            return "High";
+        }
+        return "Very high";
+    }
+
+    async function updateGlucose() {
+        try {
+            const response =
+                await fetch(
+                    `/api/glucose?patient=${currentPatient}`
+                );
+            if (
+                response.status === 401
+            ) {
+                window.location.href =
+                    "/loginpage";
+                return;
+            }
+            const data =
+                await response.json();
+            if (data.error) {
+                statusText.textContent =
+                    "Error";
+                return;
+            }
+            const value =
+                Number(data.value);
+            glucoseValue.textContent =
+                value.toFixed(1);
+            trendArrow.textContent =
+                getTrendArrow(data.trend);
+            statusText.textContent =
+                getStatus(value);
+            updateBackground(value);
+        }
+        catch (error) {
+            console.error(error);
+            statusText.textContent = "Connection error";
+        }
+    }
+    function updateBackground(value) {
+        document.body.classList.remove(
+            "glucose-low",
+            "glucose-normal",
+            "glucose-high",
+            "glucose-very-high"
+        );
+        if (value < 4.1) {
+            document.body.classList.add(
+                "glucose-low"
+            );
+        }
+        else if (value <= 10.0) {
+            document.body.classList.add(
+                "glucose-normal"
+            );
+        }
+        else if (value <= 13.9) {
+            document.body.classList.add(
+                "glucose-high"
+            );
+        }
+        else {
+            document.body.classList.add(
+                "glucose-very-high"
+            );
+        }
+    }
+
+    function logout() {
+        window.location.href =
+            "/logout";
+    }
+    updateGlucose();
+
+    setInterval(
+        updateGlucose,
+        10000
+    );
+
+</script>
 </body>
 </html>

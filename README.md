@@ -4,7 +4,7 @@ A simple web-based glucose monitoring dashboard using the LibreLinkUp API. Libre
 Libre Desktop uses the LibreLinkUp API to retrieve the latest glucose data.
 
 The application follows this general process:
-
+```
 Web Browser
      │
      ▼
@@ -21,7 +21,7 @@ Glucose Data
      │
      ├── Glucose Level
      └── Trend Direction
-
+```
 The backend handles authentication and communication with LibreLinkUp, while the frontend displays the latest glucose information in a simple dashboard.
 ## Technologies
 - Python
@@ -51,4 +51,4 @@ http://localhost:100
 Libre Desktop is an independent project and is not affiliated with or endorsed by Abbott or FreeStyle Libre.
 This project is intended for educational and personal use. It should not be used as a replacement for medical advice, professional glucose monitoring, or clinical decision-making.
 ## demo
-!![demo](static/demo.jpg)
+![demo](static/demo.jpg)
